@@ -41,6 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>E:\Work\Code\MECProcedure\MECProcedure\MyTools\Static;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -101,11 +102,14 @@
   <ItemGroup>
     <ClInclude Include="CameraSDK.h" />
     <ClInclude Include="DHSdk.h" />
+    <ClInclude Include="DlgRealPlayPage.h" />
+    <ClInclude Include="DlgRealPlayWnd.h" />
     <ClInclude Include="HKSdk.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="MECProcedure.h" />
     <ClInclude Include="MECProcedureDef.h" />
     <ClInclude Include="MECProcedureDlg.h" />
+    <ClInclude Include="MyTools\Static\MyStatic.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -113,9 +117,12 @@
   <ItemGroup>
     <ClCompile Include="CameraSDK.cpp" />
     <ClCompile Include="DHSdk.cpp" />
+    <ClCompile Include="DlgRealPlayPage.cpp" />
+    <ClCompile Include="DlgRealPlayWnd.cpp" />
     <ClCompile Include="HKSdk.cpp" />
     <ClCompile Include="MECProcedure.cpp" />
     <ClCompile Include="MECProcedureDlg.cpp" />
+    <ClCompile Include="MyTools\Static\MyStatic.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -127,4 +134,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="MECProcedure.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

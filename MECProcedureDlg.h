@@ -17,6 +17,10 @@ public:
 
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
+public:
+	//获取程序版本号信息
+	bool ReadResourceInformation(CString &sVersionNum);
+	void ShowDialogTitle();
 
 
 // 实现

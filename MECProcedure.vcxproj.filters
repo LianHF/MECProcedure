@@ -22,6 +22,12 @@
     <Filter Include="源文件\Camera\HK">
       <UniqueIdentifier>{d33ce548-91c8-4dbd-88a5-763fcc28a4fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\ControlDraw">
+      <UniqueIdentifier>{a9901827-a181-4e41-80a5-01b91a63e2fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ControlDraw\Static">
+      <UniqueIdentifier>{e11f16ba-2b43-4581-b16b-37cb9a85c177}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -63,6 +69,15 @@
     <ClInclude Include="Log.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MyTools\Static\MyStatic.h">
+      <Filter>源文件\ControlDraw\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgRealPlayPage.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgRealPlayWnd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MECProcedure.cpp">
@@ -82,6 +97,15 @@
     </ClCompile>
     <ClCompile Include="HKSdk.cpp">
       <Filter>源文件\Camera\HK</Filter>
+    </ClCompile>
+    <ClCompile Include="MyTools\Static\MyStatic.cpp">
+      <Filter>源文件\ControlDraw\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgRealPlayPage.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgRealPlayWnd.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

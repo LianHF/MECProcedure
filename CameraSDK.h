@@ -27,7 +27,7 @@ public:
 	virtual _UC SetCameraParam(void* pCameraParam) = 0;
 	//ÖØÆôÉãÏñ»ú
 	virtual _UC RebootCamera() = 0;
-
+	  
 };
 
 

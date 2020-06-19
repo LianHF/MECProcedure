@@ -12,12 +12,12 @@
 #define new DEBUG_NEW
 #endif
 
+//获取版本信息库
+#pragma comment(lib,"version.lib")
+
+
 
 // CMECProcedureDlg 对话框
-
-
-
-
 CMECProcedureDlg::CMECProcedureDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CMECProcedureDlg::IDD, pParent)
 {
@@ -35,6 +35,8 @@ BEGIN_MESSAGE_MAP(CMECProcedureDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
+
+
 // CMECProcedureDlg 消息处理程序
 
 BOOL CMECProcedureDlg::OnInitDialog()
@@ -45,6 +47,8 @@ BOOL CMECProcedureDlg::OnInitDialog()
 	//  执行此操作
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
+
+	ShowDialogTitle();
 
 	// TODO: 在此添加额外的初始化代码
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
@@ -86,3 +90,65 @@ HCURSOR CMECProcedureDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+//获取版本号信息
+bool CMECProcedureDlg::ReadResourceInformation(CString &sVersionNum)
+{
+	DWORD dwLength,dwNullHandle;
+	char szFileName[1024];
+
+	dwLength = ::GetModuleFileName(AfxGetInstanceHandle(),szFileName,sizeof(szFileName));
+	dwLength = ::GetFileVersionInfoSize(szFileName,&dwNullHandle);
+
+	char* pVersionInfo = new char[dwLength];
+	::GetFileVersionInfo(szFileName,NULL,dwLength,pVersionInfo);
+
+	unsigned int  cbTranslate = 0;
+	struct LANGANDCODEPAGE {
+		WORD wLanguage;
+		WORD wCodePage;
+	} *lpTranslate;
+	::VerQueryValue(pVersionInfo,"\\VarFileInfo\\Translation",(LPVOID *)&lpTranslate,&cbTranslate);
+
+	char  SubBlock[200];
+	sprintf( SubBlock,"\\StringFileInfo\\%04x%04x\\ProductVersion",lpTranslate[0].wLanguage,lpTranslate[0].wCodePage);
+	void *lpBuffer=NULL;
+	unsigned int dwBytes=0;
+	VerQueryValue(pVersionInfo,SubBlock,&lpBuffer,&dwBytes);
+
+	sVersionNum.Format("%s",(char *)lpBuffer);
+
+	delete [] pVersionInfo;
+
+	return   TRUE;
+}
+
+//设置窗口标题
+void CMECProcedureDlg::ShowDialogTitle()
+{
+	CString sVersion;
+	ReadResourceInformation(sVersion);
+
+	sVersion.Remove(' ');
+
+	// 解析获取到的版本信息
+	int nVersion[4];
+
+	int nVersionIndex = 0;
+	CString sVersionTemp;
+	while (AfxExtractSubString(sVersionTemp,sVersion,nVersionIndex,'.'))
+	{
+		nVersion[nVersionIndex] = atoi(sVersionTemp.GetBuffer(0));
+		nVersionIndex ++;
+		if (nVersionIndex >= 4)
+		{
+			break;
+		}
+	}
+
+	char sWindowTitle[64];
+	sprintf(sWindowTitle,"MECProcedure Version %d.%d.%d.%d",nVersion[0],nVersion[1],nVersion[2],nVersion[3]);
+
+	// 设置标题栏
+	SetWindowText(sWindowTitle);
+}
