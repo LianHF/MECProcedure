@@ -22,6 +22,7 @@ CMECProcedureDlg::CMECProcedureDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CMECProcedureDlg::IDD, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	m_bInitOver = false;
 }
 
 void CMECProcedureDlg::DoDataExchange(CDataExchange* pDX)
@@ -32,6 +33,7 @@ void CMECProcedureDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CMECProcedureDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 
@@ -48,7 +50,18 @@ BOOL CMECProcedureDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
+	//显示标题
 	ShowDialogTitle();
+
+	//创建视频显示窗口
+	m_pDlgRealPlay = new CDlgRealPlayPage(this);
+	m_pDlgRealPlay->Create(IDD_DIALOG_REALPLAY_PAGE,this);
+
+	InitView();
+	m_pDlgRealPlay->ShowWindow(SW_SHOW);
+
+
+	m_bInitOver = true;
 
 	// TODO: 在此添加额外的初始化代码
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
@@ -151,4 +164,26 @@ void CMECProcedureDlg::ShowDialogTitle()
 
 	// 设置标题栏
 	SetWindowText(sWindowTitle);
+}
+
+void CMECProcedureDlg::InitView()
+{
+	CRect rect;
+	GetClientRect(&rect);
+	m_siDlgWidth = rect.Width();
+	m_siDlgHeight = rect.Height();
+
+	m_pDlgRealPlay->MoveWindow(0, 0, m_siDlgWidth , m_siDlgHeight);
+	m_pDlgRealPlay->InitView();    
+}
+
+//窗体大小变化处理
+void CMECProcedureDlg::OnSize(UINT nType, int cx, int cy)
+{
+	CDialogEx::OnSize(nType, cx, cy);
+
+	if(m_bInitOver)
+	{
+		InitView();
+	}
 }

@@ -24,6 +24,7 @@ typedef struct
 typedef enum
 {
 	REALPLAY_WND_TYPE_ONE = 1,//单画面
+	REALPLAY_WND_TYPE_TWO = 2,//2画面
 	REALPLAY_WND_TYPE_FOUR = 4,//4画面
 	REALPLAY_WND_TYPE_NINE = 9,//9画面
 	REALPLAY_WND_TYPE_SIXTEEN = 16,//16画面
